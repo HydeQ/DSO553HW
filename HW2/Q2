@@ -1,0 +1,127 @@
+#create collection
+db.createCollection("student",{
+    validator:{
+        "$jsonSchema":{
+            bsonType:"object",
+            required:["name","home_address","phone_number"],
+            properties:{
+            name:{
+                bsonType:"string"
+            },
+            home_address:{
+                    bsonType:"object",
+                    required:["zip","street_address"],
+                    properties:{
+                        zip:{
+                            bsonType:"string"
+                        },
+                        street_address:{
+                            bsonType:"string"
+                        }
+                        }
+            },
+            phone_number:{
+                            bsonType:"string"
+                        }
+            }
+        }
+    }
+                    }
+                    )
+                   
+#insert data
+db.student.insertMany([
+        {
+            name:"A",
+            home_address:{
+                zip:"90007",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567890"
+        },
+    {
+            name:"B",
+            home_address:{
+                zip:"90007",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567891"
+        },
+    {
+            name:"C",
+            home_address:{
+                zip:"90008",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567892"
+        },
+    {
+            name:"D",
+            home_address:{
+                zip:"90009",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567893"
+        },
+    {
+            name:"E",
+            home_address:{
+                zip:"90001",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567894"
+        },
+    {
+            name:"F",
+            home_address:{
+                zip:"90002",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567895"
+        },
+    {
+            name:"G",
+            home_address:{
+                zip:"90003",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567896"
+        },
+    {
+            name:"H",
+            home_address:{
+                zip:"90004",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567897"
+        },
+    {
+            name:"I",
+            home_address:{
+                zip:"90005",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567898"
+        },
+    {
+            name:"J",
+            home_address:{
+                zip:"90006",
+                street_address:"W 29th St"
+            },
+            phone_number:"1234567899"
+        }
+])
+
+#Because we should be able to search the collection using zip code of the home address and we should also be able to search the collection using a contact phone number, we choose zip and phone number as index.
+db.student.createIndex( { "home_address.zip": 1 } )
+db.student.createIndex( { "phone_number": 1 } )
+
+#serach query
+db.student.find( { "home_address.zip": "90007"} )
+db.student.find( { "phone_number": "1234567899"} )
+
+#proof that indexes are being used
+db.student.find( { "home_address.zip": "90007"} ).explain()
+db.student.find( { "name": "A"} ).explain()
+
