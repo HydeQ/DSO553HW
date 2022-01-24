@@ -1,0 +1,310 @@
+#create embedded collection 
+db.createCollection("customer",{
+    validator:{
+        "$jsonSchema":{
+            bsonType:"object",
+            required:["customer_numb","customer_first_name","customer_last_name","customer_street","customer_city","customer_state","customer_zip","customer_phone","order"],
+            properties:{
+                customer_numb:{
+                    bsonType:"string"
+                },
+                customer_first_name:{
+                    bsonType:"string"
+                },
+                customer_last_name:{
+                    bsonType:"string"
+                },
+                customer_street:{
+                    bsonType:"string"
+                },
+                customer_city:{
+                    bsonType:"string"
+                },
+                customer_state:{
+                    bsonType:"string"
+                },
+                customer_zip:{
+                    bsonType:"string"
+                },
+                customer_phone:{
+                    bsonType:"string"
+                },
+                order:{
+                    bsonType:["array"],
+                    items:{
+                    bsonType:"object",
+                    required:["order_numb","customer_numb","order_date","credit_card_numb","credit_card_exp_date","order_complete","pickup_or_ship"],
+                    properties:{
+                        order_numb:{
+                            bsonType:"string"
+                        },
+                        customer_numb:{
+                            bsonType:"string"
+                        },
+                        order_date:{
+                            bsonType:"date"
+                        },
+                        credit_card_numb:{
+                            bsonType:"string"
+                        },
+                        credit_card_exp_date:{
+                            bsonType:"date"
+                        },
+                        order_complete:{
+                            bsonType:"bool"
+                        },
+                        pickup_or_ship:{
+                            enum:["Pickup","Ship",null]
+                        }
+                    }
+                    }
+                }
+            }
+        }
+    }
+}
+                    )
+                    
+#insert data
+db.customer.insertMany([
+    {customer_numb:"001",
+     customer_first_name:"Feiran",
+     customer_last_name:"Zhang",
+        customer_street:"30th St",
+        customer_city:"LA",
+        customer_state:"CA",
+        customer_zip:"90007",
+        customer_phone:"1234567890",
+        order:[{
+            order_numb:"001",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+
+        },
+        {
+            order_numb:"002",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+        },
+        {
+            order_numb:"003",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+        }]
+    },
+    {
+        customer_numb:"002",
+        customer_first_name:"Jack",
+        customer_last_name:"Ma",
+        customer_street:"31th St",
+        customer_city:"LA",
+        customer_state:"CA",
+        customer_zip:"90008",
+        customer_phone:"1234567891",
+        order:[{
+            order_numb:"004",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+
+        },
+        {
+            order_numb:"005",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:false,
+            pickup_or_ship:"Ship"
+        },
+        {
+            order_numb:"006",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Pickup"
+        }]
+    }
+])
+
+#create independent collections
+db.createCollection("customer1",{
+    validator:{
+        "$jsonSchema":{
+            bsonType:"object",
+            required:["customer_numb","customer_first_name","customer_last_name","customer_street","customer_city","customer_state","customer_zip","customer_phone"],
+            properties:{
+                customer_numb:{
+                    bsonType:"string"
+                },
+                customer_first_name:{
+                    bsonType:"string"
+                },
+                customer_last_name:{
+                    bsonType:"string"
+                },
+                customer_street:{
+                    bsonType:"string"
+                },
+                customer_city:{
+                    bsonType:"string"
+                },
+                customer_state:{
+                    bsonType:"string"
+                },
+                customer_zip:{
+                    bsonType:"string"
+                },
+                customer_phone:{
+                    bsonType:"string"
+                }
+            }
+        }
+    }
+}
+                    )
+                    
+db.createCollection("order1",{
+    validator:{
+        "$jsonSchema":{
+            bsonType:"object",
+            required:["order_numb","customer_numb","order_date","credit_card_numb","credit_card_exp_date","order_complete","pickup_or_ship"],
+            properties:{
+            order_numb:{
+                            bsonType:"string"
+                        },
+            customer_numb:{
+                            bsonType:"string"
+                        },
+            order_date:{
+                            bsonType:"date"
+                        },
+            credit_card_numb:{
+                            bsonType:"string"
+                        },
+            credit_card_exp_date:{
+                            bsonType:"date"
+                        },
+            order_complete:{
+                            bsonType:"bool"
+                        },
+            pickup_or_ship:{
+                            enum:["Pickup","Ship",null]
+                        }
+            }
+        }
+    }
+}
+                    )       
+                    
+#insert data
+db.customer1.insertMany([
+    {customer_numb:"001",
+     customer_first_name:"Feiran",
+     customer_last_name:"Zhang",
+        customer_street:"30th St",
+        customer_city:"LA",
+        customer_state:"CA",
+        customer_zip:"90007",
+        customer_phone:"1234567890"
+    },
+    {
+        customer_numb:"002",
+        customer_first_name:"Jack",
+        customer_last_name:"Ma",
+        customer_street:"31th St",
+        customer_city:"LA",
+        customer_state:"CA",
+        customer_zip:"90008",
+        customer_phone:"1234567891"
+    }
+])
+
+db.order1.insertMany([
+        {
+            order_numb:"001",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+
+        },
+        {
+            order_numb:"002",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+        },
+        {
+            order_numb:"003",
+            customer_numb:"001",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"123",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+        },
+        {
+            order_numb:"004",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Ship"
+
+        },
+        {
+            order_numb:"005",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:false,
+            pickup_or_ship:"Ship"
+        },
+        {
+            order_numb:"006",
+            customer_numb:"002",
+            order_date:ISODate("2022-01-21"),
+            credit_card_numb:"122",
+            credit_card_exp_date:ISODate("2022-01-21"),
+            order_complete:true,
+            pickup_or_ship:"Pickup"
+        }
+])
+
+#link customer and order
+db.customer1.aggregate([
+    {
+        $lookup:
+        {
+            from:"order1",
+            localField:"customer_numb",
+            foreignField:"customer_numb",
+            as:"order"
+        }
+    }
+])
