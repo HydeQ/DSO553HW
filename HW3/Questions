@@ -1,0 +1,60 @@
+Homework - 3
+Add it to your git repository as HW3. You can use any technique you want to to solve these
+(mongosh, notebook etc)
+2 questions - 10 points each
+
+Question 1
+Input Data:
+db.orders.insertMany( [
+{ _id: 0, productName: "Steel beam", status: "new", quantity: 10 },
+{ _id: 1, productName: "Steel beam", status: "urgent", quantity: 20 },
+{ _id: 2, productName: "Steel beam", status: "urgent", quantity: 30 },
+{ _id: 3, productName: "Iron rod", status: "new", quantity: 15 },
+{ _id: 4, productName: "Iron rod", status: "urgent", quantity: 50 },
+{ _id: 5, productName: "Iron rod", status: "urgent", quantity: 10 }
+] )
+(you may have to delete all the double quotes and redo it again)
+Output needed:
+a)
+[
+{ _id: 'Iron rod', sumQuantity: 75 },
+{ _id: 'Steel beam', sumQuantity: 60 }
+]
+b)
+[
+{ _id: 'Iron rod', sumQuantity: 60 },
+{ _id: 'Steel beam', sumQuantity: 50 }
+]
+c)
+[
+{ _id: [ 'Iron rod', 'new' ], sumQuantity: 15 },
+{ _id: [ 'Iron rod', 'urgent' ], sumQuantity: 60 },
+{ _id: [ 'Steel beam', 'new' ], sumQuantity: 10 },
+{ _id: [ 'Steel beam', 'urgent' ], sumQuantity: 50 }
+]
+d)
+[
+{ _id: [ 'Iron rod', 'urgent' ], sumQuantity: 60 },
+{ _id: [ 'Iron rod', 'new' ], sumQuantity: 15 },
+{ _id: [ 'Steel beam', 'urgent' ], sumQuantity: 50 }
+]
+Please do the aggregation function for each of the steps above. And for each of the answers
+identify how many stages are there in the pipeline.
+
+Question 2
+Load the sample data set -
+https://docs.atlas.mongodb.com/sample-data/#std-label-load-sample-data
+Go to dbs = training; collection = grades
+a) How many different classes are there
+b) How many different students are there
+c) For class_id 212, what is avg of the exam score
+d) For class_id 212, what is std dev of the exam score
+
+Bonus/Optional Question
+You do this question only if you want challenges. There are no points for this - except for the
+satisfaction of knocking off an interesting one.
+Load the sample data set -
+https://docs.atlas.mongodb.com/sample-data/#std-label-load-sample-data
+Go to dbs = training; collection = route.
+You should have enough domain knowledge to know what the collection is about.
+Find out what is the most frequently flown route
