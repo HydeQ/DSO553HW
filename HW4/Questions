@@ -1,0 +1,44 @@
+Question-1
+db.widgetSales.insertMany( [
+{ date: new ISODate("2018-12-01"), quantity: 2, unitPrice: new NumberDecimal("60") },
+{ date: new ISODate("2018-12-02"), quantity: 5, unitPrice: new NumberDecimal("90") },
+{ date: new ISODate("2018-12-02"), quantity: 10, unitPricet: new NumberDecimal("200") },
+{ date: new ISODate("2018-12-04"), quantity: 20, unitPrice: new NumberDecimal("80") },
+{ date: new ISODate("2018-12-04"), quantity: 1, unitPrice: new NumberDecimal("16") },
+{ date: new ISODate("2018-12-05"), quantity: 3, unitPrice: new NumberDecimal("60") },
+{ date: new ISODate("2019-01-25"), quantity: 2,unitPrice: new NumberDecimal("60") },
+{ date: new ISODate("2019-01-25"), quantity: 1, unitPrice: new NumberDecimal("16") },
+{ date: new ISODate("2019-01-26"), quantity: 5, unitPrice: new NumberDecimal("100") },
+{ date: new ISODate("2019-01-26"), quantity: 12,unitPrice: new NumberDecimal("48") },
+{ date: new ISODate("2019-01-26"), quantity: 2, unitPricet: new NumberDecimal("36") },
+{ date: new ISODate("2019-01-26"), quantity: 5,unitPrice: new NumberDecimal("100") },
+{ date: new ISODate("2019-01-27"), quantity: 1,unitPrice: new NumberDecimal("20") },
+{ date: new ISODate("2019-01-27"), quantity: 5, unitPrice: new NumberDecimal("80") },
+{ date: new ISODate("2019-01-27"), quantity: 3, unitPrice: new NumberDecimal("12") },
+{ date: new ISODate("2019-01-27"), quantity: 12,unitPrice: new NumberDecimal("48") },
+{ date: new ISODate("2019-01-27"), quantity: 5, unitPrice: new NumberDecimal("36") },
+{ date: new ISODate("2019-01-27"), quantity: 5, unitPrice: new NumberDecimal("100") },
+])
+unitPrice is price-per-quantity.
+Total sales = unitPrice * quantity
+We need to save total sales per month in a collection called widgetSalesMonthlyAgg
+The widgetSalesMonthlyAgg collection should look like:
+[
+{ _id: '2018-12', monthlySales: Decimal128("2366") },
+{ _id: '2019-01', monthlySales: Decimal128("3424") }
+]
+Question-2
+db.orders.insertMany( [
+{ _id: 0, productName: "Steel beam", status: "new", quantity: 10 },
+{ _id: 1, productName: "Steel beam", status: "urgent", quantity: 20 },
+{ _id: 2, productName: "Steel beam", status: "urgent", quantity: 30 },
+{ _id: 3, productName: "Iron rod", status: "new", quantity: 15 },
+{ _id: 4, productName: "Iron rod", status: "urgent", quantity: 50 },
+{ _id: 5, productName: "Iron rod", status: "urgent", quantity: 10 }
+] )
+Let us assume we always want to filter by productName and see only productName and status
+in the output.
+Can you show what a sample query would look like?
+What kind of index would you advise for the fastest query response? Create it.
+What is the index size?
+Why do you think this index will be the fastest?
