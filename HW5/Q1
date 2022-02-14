@@ -1,0 +1,2 @@
+MATCH (p:Person)-[d:DIRECTED]-(m:Movie) RETURN distinct p
+MATCH (p:Person)-[d:ACTED_IN]-(m:Movie) RETURN distinct p
